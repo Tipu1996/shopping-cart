@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import CardComp from "./CardComp";
-import axios from "axios";
 import { Grid, Typography } from "@mui/material";
+import MyContext from "../MyContext";
 
-const Cards = ({ addItems, addedItems, itemsData, cart }) => {
+const Cards = ({ cart }) => {
+	const { addItems, addedItems, itemsData } = useContext(MyContext);
 	return (
 		<Grid container justifyContent={"center"}>
 			{cart === true ? (
@@ -28,11 +29,12 @@ const Cards = ({ addItems, addedItems, itemsData, cart }) => {
 						</Grid>
 					))
 				)
-			) : itemsData.length === 0 ? (
+			) : itemsData && itemsData.length === 0 ? (
 				<Typography variant="h4" textAlign={"center"}>
 					Loading
 				</Typography>
 			) : (
+				itemsData &&
 				itemsData.map((item, index) => (
 					<Grid
 						item

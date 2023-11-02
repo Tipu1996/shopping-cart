@@ -5,8 +5,11 @@ import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import MyContext from "../MyContext";
+import { useContext } from "react";
 
-const NavBar = ({ addedItems, theme, changeTheme }) => {
+const NavBar = () => {
+	const { addedItems, theme, changeTheme } = useContext(MyContext);
 	return (
 		<AppBar position="relative" style={{ marginBottom: "3%" }}>
 			<Toolbar>
@@ -50,7 +53,7 @@ const NavBar = ({ addedItems, theme, changeTheme }) => {
 					)}
 				</IconButton>
 				<Badge
-					badgeContent={addedItems === 0 ? addedItems.length : 0}
+					badgeContent={addedItems === 0 ? 0 : addedItems.length}
 					color="secondary">
 					<Link to="/shoppingcart">
 						<IconButton aria-label="delete">

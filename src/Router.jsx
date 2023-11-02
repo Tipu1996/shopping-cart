@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import ShoppingPage from "./pages/ShoppingPage";
 import ShoppingCart from "./pages/ShoppingCart";
 import axios from "axios";
+import MyContext from "./MyContext";
 
 const Router = () => {
 	const [theme, setTheme] = useState("dark");
@@ -32,7 +33,6 @@ const Router = () => {
 					`https://fakestoreapi.com/products?limit=10`
 				);
 				tenItems = tenItems.data;
-				// console.log(tenItems);
 				const mappedItems = tenItems.map((item) => ({
 					id: item.id,
 					title: item.title,
@@ -40,7 +40,6 @@ const Router = () => {
 					price: item.price,
 				}));
 				setItemsData(mappedItems);
-				// console.log(mappedItems);
 			} catch (error) {
 				console.error("Error fetching Items data:", error);
 			}
@@ -52,50 +51,46 @@ const Router = () => {
 	const router = createBrowserRouter([
 		{
 			path: "/",
-			element: <HomePage theme={theme} changeTheme={changeTheme} />,
+			element: <HomePage />,
 			// errorElement: <ErrorPage />,
 		},
 		{
 			path: "/shoppingpage",
 			element: (
 				<ShoppingPage
-					theme={theme}
-					changeTheme={changeTheme}
-					addItems={addItems}
-					addedItems={addedItems}
-					itemsData={itemsData}
-					cart={false}
+				// theme={theme}
+				// changeTheme={changeTheme}
+				// addItems={addItems}
+				// addedItems={addedItems}
+				// itemsData={itemsData}
 				/>
 			),
 		},
 		{
 			path: "/shoppingcart",
-			element: (
-				<ShoppingCart
-					theme={theme}
-					changeTheme={changeTheme}
-					addItems={addItems}
-					addedItems={addedItems}
-					itemsData={itemsData}
-					cart={true}
-					totalPrice={totalPrice}
-				/>
-			),
+			element: <ShoppingCart />,
 		},
 	]);
 
 	return (
-		<ThemeProvider
-			theme={theme === "light" ? lightThemeOptions : darkThemeOptions}>
-			<CssBaseline />
-			<RouterProvider
-				router={router}
-				theme={theme}
-				changeTheme={changeTheme}
-				addItems={addItems}
-				addedItems={addedItems}
-			/>
-		</ThemeProvider>
+		<MyContext.Provider
+			value={{
+				router,
+				theme,
+				changeTheme,
+				addItems,
+				addedItems,
+				itemsData,
+				totalPrice,
+			}}>
+			<ThemeProvider
+				theme={
+					theme === "light" ? lightThemeOptions : darkThemeOptions
+				}>
+				<CssBaseline />
+				<RouterProvider router={router} />
+			</ThemeProvider>
+		</MyContext.Provider>
 	);
 };
 

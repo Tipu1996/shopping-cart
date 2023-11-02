@@ -1,23 +1,16 @@
+import { useContext } from "react";
 import Cards from "../components/Cards";
 import NavBar from "../components/NavBar";
 import Price from "../components/Price";
+import MyContext from "../MyContext";
 
-const ShoppingCart = ({
-	theme,
-	changeTheme,
-	addItems,
-	addedItems,
-	itemsData,
-	totalPrice,
-}) => {
+const ShoppingCart = () => {
+	const { addItems, addedItems, itemsData, totalPrice } =
+		useContext(MyContext);
 	const cart = true;
 	return (
 		<>
-			<NavBar
-				theme={theme}
-				changeTheme={changeTheme}
-				addedItems={addedItems}
-			/>
+			<NavBar />
 			<Cards
 				addItems={addItems}
 				addedItems={addedItems}

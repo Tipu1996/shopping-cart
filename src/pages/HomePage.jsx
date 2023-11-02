@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { Typography } from "@mui/material";
+import { useContext } from "react";
+import MyContext from "../MyContext";
 
-const HomePage = ({ addedItems, theme, changeTheme }) => {
+const HomePage = () => {
 	return (
 		<>
-			<NavBar
-				theme={theme}
-				changeTheme={changeTheme}
-				addedItems={addedItems}
-			/>
+			<NavBar />
 			<Link
 				to="/shoppingpage"
 				style={{
